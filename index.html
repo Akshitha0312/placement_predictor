@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Placement Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Placement Prediction System 🎯</h1>
+    <p style="text-align:center; color:#e67258;">
+        Check your placement chances using AI
+    </p>
+
+    <form action="/predict" method="post">
+        <label>CGPA</label>
+        <input type="number" step="0.1" name="cgpa" required>
+
+        <label>Internships</label>
+        <input type="number" name="internships" required>
+
+        <label>Coding Skill (1–5)</label>
+        <input type="number" name="coding" min="1" max="5" required>
+
+        <label>Communication Skill (1–5)</label>
+        <input type="number" name="communication" min="1" max="5" required>
+
+        <button type="submit">Predict</button>
+    </form>
+</div>
+
+</body>
+</html>

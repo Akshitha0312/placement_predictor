@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Prediction Result</h2>
+    <h2>Placement Probability: {{ probability }}%</h2>
+
+    <h1>{{ message }}</h1>
+    <p style="text-align:center; color:#0bd319;">
+        Based on your academic and skill profile
+    </p>
+
+    <div class="chart-box">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <h3>Recommendations</h3>
+    {% if tips|length == 0%}
+        <p>Great Profile! Keep maintaining your Skills 🚀</p>
+    {% else %}
+        <ul>
+            {% for tip in tips %}
+                <li>{{ tip }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <a href="/download">
+    <button>Download History (Excel)</button>
+</a>
+
+    <a href="/">Try Again</a>
+</div>
+
+<script>
+    var cgpa = Number("{{ cgpa }}");
+    var internships = Number("{{ internships }}");
+    var coding = Number("{{ coding }}");
+    var communication = Number("{{ communication }}");
+
+    var ctx = document.getElementById("myChart").getContext("2d");
+
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["CGPA", "Internships", "Coding", "Communication"],
+            datasets: [{
+                label: "Student Profile",
+                data: [cgpa, internships, coding, communication],
+                borderWidth: 1,
+                backgroundColor: "#5b86e5"
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
